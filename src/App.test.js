@@ -1,8 +1,24 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { fireEvent, getByText, render } from "@testing-library/react";
+import { App } from "./App";
+import { screen } from "@testing-library/dom";
+import userEvent from "@testing-library/user-event";
 
-test('renders learn react link', () => {
+test("renders input binding", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const input = screen.getByTestId("input-text");
+  expect(input).toBeInTheDocument();
+});
+
+test("create value text", () => {
+  render(<App />);
+  const text = screen.getByTestId("text-value");
+  expect(text).toBeInTheDocument();
+});
+
+test("binding two element", () => {
+  render(<App />);
+  const input = screen.getByTestId("input-text");
+  userEvent.type(input, "test");
+  const text = screen.getByText("test");
+  expect(text).toBeInTheDocument();
 });
